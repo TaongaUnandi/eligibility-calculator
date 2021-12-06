@@ -33,7 +33,9 @@ function eligibilityCalculator(rate, nper, pmt) {
     2
   )}, with the disbursement amount being K${amountDisbursed.toFixed(
     2
-  )} after a deduction of our ${serviceFee}% service fee. The maximum installment amount per month is K${maxInstallment.toFixed(
+  )} after a deduction of our ${
+    serviceFee * 100
+  }% service fee. The maximum installment amount per month is K${maxInstallment.toFixed(
     2
   )}`;
   return eligible;
