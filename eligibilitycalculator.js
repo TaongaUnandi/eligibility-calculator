@@ -11,8 +11,8 @@ const otherAllowance = prompt(
   "Please enter any other allowances. If none, enter 0"
 );
 const loanTerm = prompt("Please enter the loan term");
-const interest = prompt("Please enter the interest in decimal form");
-const serviceFee = prompt("Please enter the service fee in decimal form");
+const interest = prompt("Please enter the interest");
+const serviceFee = prompt("Please enter the service fee");
 const napsaFee = prompt("Please enter monthly NAPSA payment");
 const payeTax = prompt("Please enter monthly PAYE tax");
 const nhimaFee = prompt("Please enter monthly NHIMA payment");
@@ -28,14 +28,12 @@ const otherDeductions = prompt(
 
 function eligibilityCalculator(rate, nper, pmt) {
   const maxLoanAmount = (pmt / rate) * (1 - Math.pow(1 + rate, -nper));
-  const amountDisbursed = maxLoanAmount * (1 - serviceFee);
+  const amountDisbursed = maxLoanAmount * (1 - serviceFee / 100);
   const eligible = `The customer is eligible for K${maxLoanAmount.toFixed(
     2
   )}, with the disbursement amount being K${amountDisbursed.toFixed(
     2
-  )} after a deduction of our ${
-    serviceFee * 100
-  }% service fee. The maximum installment amount per month is K${maxInstallment.toFixed(
+  )} after a deduction of our ${serviceFee}% service fee. The maximum installment amount per month is K${maxInstallment.toFixed(
     2
   )}`;
   return eligible;
@@ -46,7 +44,7 @@ const grossPay =
   Number(housingAllowance) +
   Number(transportAllowance) +
   Number(otherAllowance);
-console.log(grossPay);
+//console.log(grossPay);
 const totalDeductions =
   Number(napsaFee) +
   Number(nhimaFee) +
@@ -56,13 +54,13 @@ const totalDeductions =
   Number(otherDeductions);
 const netPay = Number(grossPay - totalDeductions);
 const maxInstallment = 0.4 * netPay;
-console.log(
-  `Gross pay is K${grossPay}, total deductions add up to K${totalDeductions} making the net pay K${netPay}.`
-);
+// alert(
+//   `Gross pay is K${grossPay}, total deductions add up to K${totalDeductions} making the net pay K${netPay}.`
+// );
 
-console.log(
+alert(
   eligibilityCalculator(
-    Number(interest),
+    Number(interest / 100),
     Number(loanTerm),
     Number(maxInstallment)
   )
